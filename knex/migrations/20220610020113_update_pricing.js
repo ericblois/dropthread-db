@@ -5,11 +5,12 @@
 exports.up = function(knex) {
   return knex.schema
   .alterTable('Item', table => {
-    table.decimal('recentPrice', 7, 2).defaultTo(null)
+    table.decimal('lastPrice', 7, 2).defaultTo(null)
+    table.decimal('currentPrice', 7, 2).defaultTo(null)
     table.renameColumn('price', 'minPrice')
   })
   .alterTable('UserInteractsItem', table => {
-    table.decimal('newPrice', 7, 2).defaultTo(null)
+    table.decimal('likePrice', 7, 2).defaultTo(null)
   })
 };
 
@@ -20,10 +21,11 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
     .alterTable('UserInteractsItem', table => {
-        table.dropColumn('newPrice')
+        table.dropColumn('likePrice')
     })
     .alterTable('Item', table => {
-        table.dropColumn('recentPrice')
+        table.dropColumn('lastPrice')
+        table.dropColumn('currentPrice')
         table.renameColumn('minPrice', 'price')
     })
 };
