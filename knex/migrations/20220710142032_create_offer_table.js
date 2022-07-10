@@ -16,6 +16,7 @@
         table.bigInteger('offerTime').notNullable()
         table.text('responseType')
         table.bigInteger('responseTime')
+        table.uuid('counterOfferID')
     })
   };
   
