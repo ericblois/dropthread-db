@@ -30,9 +30,9 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
   return knex.schema
-    .raw('DROP EXTENSION IF EXISTS "uuid-ossp";')
     .dropTable('Exchange')
     .alterTable('Item', table => {
         table.dropColumn('exchangeID')
     })
+    .raw('DROP EXTENSION IF EXISTS "uuid-ossp";')
 };
