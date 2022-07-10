@@ -13,6 +13,7 @@ exports.up = function(knex) {
     table.specificType('buyerItems', 'uuid ARRAY')
     table.decimal('buyerPayment', 7, 2).notNullable()
     table.text('deliveryMethod').notNullable()
+    table.text('deliveryAddress')
     table.bigInteger('sellerAcceptTime').notNullable()
     table.bigInteger('buyerAcceptTime')
     table.bigInteger('deliveryPlannedTime')
