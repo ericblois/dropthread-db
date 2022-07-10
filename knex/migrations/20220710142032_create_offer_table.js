@@ -17,6 +17,7 @@
         table.text('responseType')
         table.bigInteger('responseTime')
         table.uuid('counterOfferID')
+        table.uuid('exchangeID')
     })
   };
   
