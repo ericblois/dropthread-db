@@ -13,6 +13,7 @@
         table.decimal('fromPayment', 7, 2)
         table.decimal('toPayment', 7, 2)
         table.text('deliveryMethod').notNullable()
+        table.bigInteger('offerTime').notNullable()
         table.text('responseType')
         table.bigInteger('responseTime')
     })
