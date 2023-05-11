@@ -3,6 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
+    // postgis must be installed in docker container
     return knex.schema
     .raw(`
         CREATE EXTENSION IF NOT EXISTS postgis;
