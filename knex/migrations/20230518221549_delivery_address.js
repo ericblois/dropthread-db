@@ -8,6 +8,10 @@ exports.up = function(knex) {
         table.double('lat').notNullable()
         table.double('long').notNullable()
     })
+    .alterTable('Offer', table => {
+        table.text('deliveryMethod').notNullable()
+        table.json('deliveryAddress').nullable()
+    })
     .renameTable('ShippingInfo', 'DeliveryAddress')
 };
 
@@ -19,6 +23,9 @@ exports.down = function(knex) {
     return knex.schema
     .alterTable('DeliveryAddress', table => {
         table.dropColumns(['lat', 'long'])
+    })
+    .alterTable('Offer', table => {
+        table.dropColumns(['deliveryMethod', 'deliveryAddress'])
     })
     .renameTable('DeliveryAddress', 'ShippingInfo')
 };
