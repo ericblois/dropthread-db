@@ -12,7 +12,7 @@ exports.up = function(knex) {
         table.text('deliveryMethod').notNullable()
         table.json('deliveryAddress').nullable()
     })
-    .renameTable('ShippingInfo', 'DeliveryAddress')
+    .renameTable('ShippingInfo', 'Address')
 };
 
 /**
@@ -27,5 +27,5 @@ exports.down = function(knex) {
     .alterTable('Offer', table => {
         table.dropColumns(['deliveryMethod', 'deliveryAddress'])
     })
-    .renameTable('DeliveryAddress', 'ShippingInfo')
+    .renameTable('Address', 'ShippingInfo')
 };
