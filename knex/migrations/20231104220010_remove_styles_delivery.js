@@ -6,6 +6,7 @@ exports.up = function(knex) {
     return knex.schema
     .alterTable('Item', table => {
         table.dropColumns(['deliveryMethods', 'styles'])
+        table.text('address').nullable()
     })
 };
 
@@ -16,7 +17,8 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
     .alterTable('Item', table => {
-        table.specificType('deliveryMethods', 'text ARRAY').notNullable()
-        table.specificType('styles', 'text ARRAY').notNullable()
+        table.specificType('deliveryMethods', 'text ARRAY').notNullable().defaultTo('{}')
+        table.specificType('styles', 'text ARRAY').notNullable().defaultTo('{}')
+        table.dropColumn('address')
     })
 };
