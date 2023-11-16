@@ -4,7 +4,7 @@
  */
 exports.up = function(knex) {
   return knex.schema
-  .createTableIfNotExists('ItemPriceHistory', table => {
+  .createTable('ItemPriceHistory', table => {
         table.integer('changeID').notNullable()
         table.uuid('itemID').references('itemID').inTable('Item').notNullable()
         table.decimal('minPrice', 7, 2).notNullable()

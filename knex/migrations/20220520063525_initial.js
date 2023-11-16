@@ -7,6 +7,7 @@ exports.up = function(knex) {
     return knex.schema
     .raw(`
         CREATE EXTENSION IF NOT EXISTS postgis;
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
     `)
     .createTable('User', table => {
         table.text('userID').notNullable().primary()
@@ -21,10 +22,10 @@ exports.up = function(knex) {
         table.double('lat').notNullable()
         table.double('long').notNullable()
     }).createTable('Item', table => {
-        table.uuid('itemID').primary()
-        table.text('userID').references('userID').inTable('User')
+        table.uuid('itemID').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+        table.text('userID').references('userID').inTable('User').notNullable()
         table.text('name').notNullable()
-        table.text('description').notNullable()
+        table.text('description').nullable()
         table.decimal('price', 7, 2).notNullable()
         table.text('category').notNullable()
         table.text('gender').notNullable()
@@ -34,8 +35,6 @@ exports.up = function(knex) {
         table.specificType('images', 'text ARRAY').notNullable()
         table.text('country').notNullable()
         table.text('region').nullable()
-        table.specificType('deliveryMethods', 'text ARRAY').notNullable()
-        table.specificType('styles', 'text ARRAY').notNullable()
         table.specificType('keywords', 'text ARRAY').notNullable()
         table.geography('geoCoords').notNullable()
         table.integer('viewCount').notNullable()
@@ -89,12 +88,13 @@ exports.down = function(knex) {
     .raw(`
         DROP FUNCTION array_intersect(anyarray, anyarray);
     `)
-    .dropTable('Message')
-    .dropTable('UserInteractsItem')
-    .dropTable('ShippingInfo')
-    .dropTable('Item')
-    .dropTable('User')
+    .dropTableIfExists('Message')
+    .dropTableIfExists('UserInteractsItem')
+    .dropTableIfExists('ShippingInfo')
+    .dropTableIfExists('Item')
+    .dropTableIfExists('User')
     .raw(`
         DROP EXTENSION IF EXISTS postgis;
+        DROP EXTENSION IF EXISTS "uuid-ossp";
     `)
 };

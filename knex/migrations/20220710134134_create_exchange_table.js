@@ -27,7 +27,7 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
   return knex.schema
-    .dropTable('Exchange')
+    .dropTableIfExists('Exchange')
     .alterTable('Item', table => {
         table.dropColumn('exchangeID')
     })
